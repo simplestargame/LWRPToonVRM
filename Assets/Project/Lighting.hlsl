@@ -588,8 +588,7 @@ half4 LightweightFragmentToon(InputData inputData, half3 albedo, half3 shade, ha
     Light mainLight = GetMainLight(inputData.shadowCoord);
     MixRealtimeAndBakedGI(mainLight, inputData.normalWS, inputData.bakedGI, half4(0, 0, 0, 0));
 
-    half3 color = GlobalIllumination(brdfData, inputData.bakedGI, occlusion, inputData.normalWS, inputData.viewDirectionWS);
-
+    half3 color = half3(0, 0, 0);
 	half lighing = ToonyIntensity(mainLight.direction, inputData.normalWS, shadeShift, shadeToony) * mainLight.shadowAttenuation;
     half3 attenuatedLightColor = mainLight.color * mainLight.distanceAttenuation;
 	color += (inputData.bakedGI + attenuatedLightColor) * lerp(shade, albedo, lighing) * toonyLighting;

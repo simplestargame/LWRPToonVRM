@@ -23,6 +23,14 @@ use Assets/Project/LWRP-HighQuality
 Good!  
 
 3. Replace Shader Files  
-Project View > Packages > Lightweight RP > ShaderLigrary  
-Override Lighting assets from Assets/Project/Lighting  
-Move 3 files from Assets/Project/Editor/Lightweight RP/* to Packages/Lightweight RP/Editor/Shader Graph  
+Override Packages\com.unity.render-pipelines.lightweight@x.xx.x\ShaderLibrary\Lighting.hlsl from Assets/Project/Lighting.hlsl  
+Move 3 files from Assets/Project/Editor/Lightweight RP/* to Packages/Lightweight RP/Editor/ShaderGraph/  
+Move 2 files from Assets/Project/Editor/Shader Graph/MasterNodes/* to Packages/Shader Graph/Editor/Data/MasterNodes/  
+Move 1 files from Assets/Project/Editor/Shader Graph/ShaderGUI/* to Packages/Shader Graph/Editor/ShaderGUI/  
+Move 1 files from Assets/Project/Editor/Shader Graph/Views/* to Packages/Shader Graph/Editor/Drawing/Views/  
+Edit Assets\VRM\UniVRM\Scripts\Format\VRMMaterialImporter.cs as following  
+```cs
+var shaderName = "Shader Graphs/ToonShaderGraph";//item.shader;
+var shader = Shader.Find(shaderName);
+```
+Now, you can retry load vrm files.  
