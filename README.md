@@ -17,3 +17,12 @@ Window > Package Manager > Lightweight RP
 you can find Library\PackageCache\com.unity.render-pipelines.lightweight@5.16.1  
 and com.unity.shadergraph@5.16.1  
 move these 2 folders to Packages directory like "Packages\com.unity.~"  
+set Project Settings > Graphics > Scriptable Render Pipeline Settings  
+use Assets/Project/LWRP-HighQuality  
+![SetLWRP](./README/SetLWRP.jpg)  
+Good!  
+
+3. Replace Shader Files  
+Project View > Packages > Lightweight RP > ShaderLigrary  
+Override Lighting assets from Assets/Project/Lighting  
+Move 3 files from Assets/Project/Editor/Lightweight RP/* to Packages/Lightweight RP/Editor/Shader Graph  
