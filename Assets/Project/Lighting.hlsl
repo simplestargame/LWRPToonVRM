@@ -569,6 +569,31 @@ half4 LightweightFragmentBlinnPhong(InputData inputData, half3 diffuse, half4 sp
 
 // for Toon Shading
 
+// following code can be taken from https://github.com/Santarh/MToon
+/*
+MIT License
+
+Copyright (c) 2018 Masataka SUMI
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 half ToonyIntensity(half3 lightDir, half3 normal, half shadeShift, half shadeToony)
 {
 	half lightIntensity = dot(normal, lightDir);
@@ -579,6 +604,31 @@ half ToonyIntensity(half3 lightDir, half3 normal, half shadeShift, half shadeToo
 	return lightIntensity;
 }
 
+// following code can be taken from https://github.com/you-ri/LiliumToonGraph
+/*
+MIT License
+
+Copyright (c) 2019 You-Ri
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 half4 LightweightFragmentToon(InputData inputData, half3 albedo, half3 shade, half metallic, half3 specular,
     half smoothness, half occlusion, half3 emission, half alpha, half shadeShift, half shadeToony, half3 sphereAdd, half toonyLighting)
 {
@@ -588,10 +638,9 @@ half4 LightweightFragmentToon(InputData inputData, half3 albedo, half3 shade, ha
     Light mainLight = GetMainLight(inputData.shadowCoord);
     MixRealtimeAndBakedGI(mainLight, inputData.normalWS, inputData.bakedGI, half4(0, 0, 0, 0));
 
-    half3 color = half3(0, 0, 0);
 	half lighing = ToonyIntensity(mainLight.direction, inputData.normalWS, shadeShift, shadeToony) * mainLight.shadowAttenuation;
     half3 attenuatedLightColor = mainLight.color * mainLight.distanceAttenuation;
-	color += (inputData.bakedGI + attenuatedLightColor) * lerp(shade, albedo, lighing) * toonyLighting;
+	half3 color = (inputData.bakedGI + attenuatedLightColor) * lerp(shade, albedo, lighing) * toonyLighting;
 
 #ifdef _ADDITIONAL_LIGHTS
     int pixelLightCount = GetAdditionalLightsCount();
@@ -614,8 +663,7 @@ inline float3 TransformViewToProjection(float3 v) {
 	return mul((float3x3)UNITY_MATRIX_P, v);
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
+// called by PASS scripts to draw outline
 float4 TransformOutlineToHClipScreenSpace(float3 position, float3 normal, float outlineWidth)
 {
 	half _OutlineScaledMaxDistance = 10;

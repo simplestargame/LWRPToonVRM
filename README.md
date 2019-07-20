@@ -1,5 +1,7 @@
 # LWRP Toon Shader for UniVRM(MToon)  
 
+![](./README/ShaderGraph.jpg)
+
 ## Getting Started  
 
 This project uses Unity 2019.1.11f1 or later.  
@@ -20,7 +22,7 @@ move these 2 folders to Packages directory like "Packages\com.unity.~"
 set Project Settings > Graphics > Scriptable Render Pipeline Settings  
 use Assets/Project/LWRP-HighQuality  
 ![SetLWRP](./README/SetLWRP.jpg)  
-Good!  
+Wow!  
 
 3. Replace Shader Files  
 Override Packages\com.unity.render-pipelines.lightweight@x.xx.x\ShaderLibrary\Lighting.hlsl from Assets/Project/Lighting.hlsl  
@@ -34,3 +36,8 @@ var shaderName = "Shader Graphs/ToonShaderGraph";//item.shader;
 var shader = Shader.Find(shaderName);
 ```
 Now, you can retry load vrm files.  
+![ReplaceLWRPResult.jpg](./README/ReplaceLWRPResult.jpg)  
+Yeah!
+
+# Detail  
+Watch replaced files.
