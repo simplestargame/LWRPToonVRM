@@ -127,7 +127,6 @@ ${PixelShaderSurfaceInputs}
 		float ShadeShift = 0.5;
 		float ShadeToony = 1;
 		float3 OutlineColor = float3(0, 0, 0);
-		float OutlineLightingMix = 1;
 
 		// Surface description remap performed by graph
 ${PixelShaderSurfaceRemap}
@@ -256,8 +255,6 @@ ${VertexShaderDescriptionInputs}
 
 		// Vertex shader outputs defined by graph
 ${VertexShaderOutputs}
-		float3 lwWNormal = TransformObjectToWorldNormal(v.normal);
-        VertexPositionInputs vertexInput = GetVertexPositionInputs(v.vertex.xyz);
         o.clipPos = TransformOutlineToHClipScreenSpace(v.vertex.xyz, v.normal.xyz, vd.OutlineWidth);
 		return o;
 	}
@@ -290,7 +287,6 @@ ${PixelShaderSurfaceInputs}
 		float ShadeShift = 0.5;
 		float ShadeToony = 1;
 		float3 OutlineColor = float3(0, 0, 0);
-		float OutlineLightingMix = 0;
 
 		// Surface description remap performed by graph
 ${PixelShaderSurfaceRemap}
