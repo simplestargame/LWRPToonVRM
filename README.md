@@ -1,5 +1,10 @@
 # LWRP Toon Shader for UniVRM(MToon)  
 
+New URP Toon Shader -> https://github.com/simplestargame/SimpleURPToonLitOutlineExample
+
+This repository is old.  
+This shader does not support the latest UniVRM.
+
 ![](./README/ShaderGraph.jpg)
 
 ## Getting Started  
